@@ -9,22 +9,16 @@ import { cn } from "@/lib/utils"
 
 const infoCols = [
   {
-    label: "Current Role",
-    title: "Jet Aviation Basel",
-    body: "Aerospace Mechanical Engineer specializing in VIP aircraft maintenance and modifications at one of Europe's leading MRO centres.",
-    meta: "2024 – Present · Basel, Switzerland",
-  },
-  {
-    label: "Education",
-    title: "MSc AI-Driven Software Dev",
-    body: "Pursuing a master's in AI-Driven Software Development at Universidad Isabel I, bridging aerospace expertise with modern full-stack engineering.",
-    meta: "2025 – 2026 · Universidad Isabel I",
-  },
-  {
-    label: "Background",
-    title: "Aerospace Engineering",
+    title: "Background",
     body: "BEng in Aerospace Engineering from UPV/EHU. 5+ years at ITP Aero, Aernnova, and Jet Aviation across structures, engines and maintenance.",
-    meta: "2018 – 2023 · Bilbao, Spain",
+  },
+  {
+    title: "Current Role",
+    body: "Aerospace Mechanical Engineer specializing in VIP aircraft maintenance and modifications at one of Europe's leading MRO centres.",
+  },
+  {
+    title: "Education",
+    body: "Pursuing a master's in AI-Driven Software Development at Universidad Isabel I, bridging aerospace expertise with modern full-stack engineering.",
   },
 ]
 
@@ -43,53 +37,86 @@ const techTags = [
 
 /* ─── Info column — independently hoverable ─────────────────────────────────── */
 
-function InfoCol({ col, isHovered, index }: { col: typeof infoCols[0], isHovered: boolean, index: number }) {
-  // Mas separación: Grupo del 90% (32 + 2x29). Margen = 5%.
-  const leftPos = 5 + (index * 29);
+function InfoCol({ col, isHovered, isDefault, index }: { col: typeof infoCols[0], isHovered: boolean, isDefault: boolean, index: number }) {
+  let yPos = 0;
+  if (isHovered) yPos = -60;
+  else if (isDefault) yPos = index === 1 ? -15 : 15;
+  else yPos = 40;
+
+  let scale = 1;
+  if (isHovered) scale = 1.05;
+  else if (isDefault) scale = index === 1 ? 1 : 0.85;
+  else scale = 0.85;
+
+  let opacity = 1;
+  if (isHovered) opacity = 1;
+  else if (isDefault) opacity = index === 1 ? 1 : 0.5;
+  else opacity = 0.3;
+
+  let zIndex = 10;
+  if (isHovered) zIndex = 50;
+  else if (isDefault && index === 1) zIndex = 20;
+
+  let rotate = 0;
+  if (index === 0) rotate = -6;
+  else if (index === 2) rotate = 6;
+  else rotate = 0;
+
+  const textAlignClass = index === 0 ? "text-left items-start" : index === 1 ? "text-center items-center" : "text-right items-end";
 
   return (
     <motion.div
       initial={false}
       animate={{
-        y: isHovered ? -44 : 0,
-        scale: isHovered ? 1.02 : 1,
-        zIndex: isHovered ? 50 : (index === 1 ? 20 : 10),
+        y: yPos,
+        scale,
+        rotate,
+        zIndex,
+        opacity,
+        x: index === 1 ? "-50%" : "0%",
       }}
-      transition={{ type: "spring", stiffness: 200, damping: 25 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={cn(
-        "absolute top-[54px] w-[32%] h-[140px] p-3.5 flex flex-col gap-2 rounded-2xl border border-white/10 transition-all duration-300",
-        "bg-[#0d0d1a] shadow-2xl shadow-black/80",
-        isHovered ? "border-purple-500/40 shadow-[0_20px_70px_-15px_rgba(168,85,247,0.4)] opacity-100" : "opacity-45"
+        "absolute top-20 w-[42%] min-h-[150px] p-5 sm:p-6 flex flex-col gap-3 rounded-2xl border transition-colors duration-300",
+        "bg-[#11111a] shadow-2xl",
+        isHovered ? "border-purple-500/60 shadow-[0_0_40px_rgba(168,85,247,0.3)]" : "border-white/5 shadow-black/80",
+        textAlignClass
       )}
-      style={{ left: `${leftPos}%` }}
+      style={{
+        left: index === 0 ? "2%" : index === 1 ? "50%" : "auto",
+        right: index === 2 ? "2%" : "auto",
+      }}
     >
-      <div className="flex flex-col gap-2 items-center text-center">
-        <h3 className="text-[12.5px] font-black tracking-tighter text-white uppercase leading-tight">
-          {col.title}
-        </h3>
-        <p className="text-[8px] font-mono uppercase tracking-[0.43em] text-purple-400 font-bold">
-          {col.label}
-        </p>
-      </div>
-
-      <div className="mt-1 flex flex-col h-full overflow-hidden">
-        <p className="text-white/70 text-[9px] leading-tight text-center font-medium">
-          {col.body}
-        </p>
-        <p className="text-[7.5px] font-mono text-white/20 mt-auto pt-2 text-center border-t border-white/5 uppercase tracking-[0.1em]">{col.meta}</p>
-      </div>
+      <h3 className="text-[11px] sm:text-xs font-black tracking-normal text-white uppercase">
+        {col.title}
+      </h3>
+      <p className="text-[10px] sm:text-[12px] leading-relaxed text-white/50 font-medium">
+        {col.body}
+      </p>
     </motion.div>
   )
 }
 
 function InfoColGroup() {
   const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null)
+  const isHoveringAny = hoveredIndex !== null;
 
   return (
-    <div className="relative w-full h-full min-h-[180px] overflow-hidden">
+    <div className="relative w-full h-[180px] overflow-hidden">
+      {/* HOVER TO READ MORE label */}
+      <motion.div
+        animate={{ opacity: isHoveringAny ? 0 : 1, y: isHoveringAny ? -10 : 0 }}
+        transition={{ duration: 0.3 }}
+        className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none z-30"
+      >
+        <div className="px-5 py-1.5 rounded-full border border-white/5 bg-black/40 backdrop-blur-md">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[#818cf8]">Hover to read more</span>
+        </div>
+      </motion.div>
+
       {infoCols.map((col, idx) => (
         <div
-          key={col.label}
+          key={col.title}
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
           className="contents"
@@ -97,6 +124,7 @@ function InfoColGroup() {
           <InfoCol
             col={col}
             isHovered={hoveredIndex === idx}
+            isDefault={!isHoveringAny}
             index={idx}
           />
         </div>
@@ -181,7 +209,7 @@ export function About() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className={cn(card, "flex flex-col items-center justify-center p-8 min-h-[160px] text-center")}
+          className={cn(card, "flex flex-col items-center justify-center p-8 h-[180px] text-center")}
         >
           <div className="flex flex-col items-center">
             <h2 className="text-[36px] font-black tracking-tighter leading-[1.0] text-white uppercase mb-4">
@@ -198,15 +226,8 @@ export function About() {
         <motion.div
           initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ delay: 0.07 }}
-          className={cn(card, "col-span-2 relative p-0 overflow-hidden min-h-[160px]")}
+          className={cn(card, "col-span-2 relative p-0 overflow-hidden h-[180px]")}
         >
-          {/* HOVER TO READ MORE label */}
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none z-30">
-            <div className="px-5 py-1.5 rounded-full border border-white/5 bg-black/20 backdrop-blur-md">
-              <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-white/40 font-bold">Hover to read more</span>
-            </div>
-          </div>
-
           <div className="absolute inset-0 pt-0">
             <InfoColGroup />
           </div>
@@ -258,9 +279,9 @@ export function About() {
           <div className="rounded-2xl overflow-hidden flex-1 relative min-h-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/avatar.png"
+              src="/PhotoCV.PNG"
               alt="Ander Mañas"
-              className="absolute inset-0 w-full h-full object-cover object-[center_8%]"
+              className="absolute inset-0 w-full h-full object-cover object-[center_20%]"
             />
           </div>
 

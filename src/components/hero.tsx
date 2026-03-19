@@ -4,13 +4,14 @@ import React from "react"
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
 import { ArrowRight, Search, Smile, GraduationCap, Layers, Briefcase, Mail, UserPlus, Download } from "lucide-react"
 import { Avatar3D } from "@/components/avatar-3d"
+import Link from "next/link"
 
 const quickLinks = [
-  { label: "Me", icon: Smile, color: "text-emerald-400" },
-  { label: "Education", icon: GraduationCap, color: "text-blue-400" },
-  { label: "Tech Stack", icon: Layers, color: "text-purple-400" },
-  { label: "Projects", icon: Briefcase, color: "text-pink-400" },
-  { label: "Contact", icon: Mail, color: "text-amber-400" },
+  { label: "Me", icon: Smile, color: "text-emerald-400", href: "#about" },
+  { label: "Education", icon: GraduationCap, color: "text-blue-400", href: "#experience" },
+  { label: "Tech Stack", icon: Layers, color: "text-purple-400", href: "#skills" },
+  { label: "Projects", icon: Briefcase, color: "text-pink-400", href: "#projects" },
+  { label: "Contact", icon: Mail, color: "text-amber-400", href: "#contact" },
 ]
 
 export function Hero() {
@@ -54,7 +55,10 @@ export function Hero() {
           {/* Action Buttons with a subtle funny touch */}
           <div className="mt-5 md:mt-6 flex flex-col items-center gap-3">
             <div className="flex flex-wrap items-center justify-center gap-3">
-              <button className="group relative flex items-center gap-1.5 px-5 py-2.5 bg-violet-600 hover:bg-violet-500 text-white font-bold text-[10px] md:text-[11px] tracking-widest rounded-xl shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all hover:scale-[1.04] active:scale-95">
+              <Link 
+                href="#contact"
+                className="group relative flex items-center gap-1.5 px-5 py-2.5 bg-violet-600 hover:bg-violet-500 text-white font-bold text-[10px] md:text-[11px] tracking-widest rounded-xl shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all hover:scale-[1.04] active:scale-95"
+              >
                 <span>LET&apos;S COLLABORATE</span>
                 <UserPlus className="w-3.5 h-3.5 ml-1 group-hover:rotate-12 transition-transform" strokeWidth={2} />
                 
@@ -62,12 +66,16 @@ export function Hero() {
                 <div className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 text-[10px] bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full whitespace-nowrap pointer-events-none hidden md:block border border-white/5 font-normal tracking-normal normal-case">
                   (I promise no `console.logs` in prod 🤞)
                 </div>
-              </button>
+              </Link>
               
-              <button className="group flex items-center gap-1.5 px-5 py-2.5 bg-white/[0.03] hover:bg-white/[0.08] text-white/90 font-bold text-[10px] md:text-[11px] tracking-widest rounded-xl border border-white/10 hover:border-violet-500/50 transition-all hover:scale-[1.04] active:scale-95 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]">
+              <a 
+                href="/Ander_manas_CV.pdf" 
+                download="Ander_manas_CV.pdf"
+                className="group flex items-center gap-1.5 px-5 py-2.5 bg-white/[0.03] hover:bg-white/[0.08] text-white/90 font-bold text-[10px] md:text-[11px] tracking-widest rounded-xl border border-white/10 hover:border-violet-500/50 transition-all hover:scale-[1.04] active:scale-95 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]"
+              >
                 <span>GET RESUME</span>
                 <Download className="w-3.5 h-3.5 ml-1 group-hover:-translate-y-1 transition-transform" strokeWidth={2} />
-              </button>
+              </a>
             </div>
           </div>
         </motion.div>
@@ -110,18 +118,23 @@ export function Hero() {
 
           <div className="flex gap-2 md:gap-3 flex-wrap justify-center mt-2">
             {quickLinks.map((item, idx) => (
-              <motion.button
+              <Link
                 key={item.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8 + idx * 0.07, type: "spring" }}
+                href={item.href}
                 className="flex flex-col items-center justify-center gap-1.5 md:gap-2 w-16 h-16 md:w-20 md:h-20 rounded-xl md:rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/10 transition-all group hover:shadow-[0_0_20px_rgba(255,255,255,0.03)]"
               >
-                <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.color} group-hover:scale-110 transition-transform duration-300`} strokeWidth={1.5} />
-                <span className="text-[10px] md:text-xs font-medium text-white/60 group-hover:text-white transition-colors">
-                  {item.label}
-                </span>
-              </motion.button>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.8 + idx * 0.07, type: "spring" }}
+                  className="flex flex-col items-center justify-center"
+                >
+                  <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.color} group-hover:scale-110 transition-transform duration-300`} strokeWidth={1.5} />
+                  <span className="text-[10px] md:text-xs font-medium text-white/60 group-hover:text-white transition-colors">
+                    {item.label}
+                  </span>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </motion.div>

@@ -57,13 +57,13 @@ export function Footer() {
   }
 
   return (
-    <footer id="contact" className="min-h-screen flex flex-col justify-center py-12 px-4 max-w-7xl mx-auto w-full">
+    <footer id="contact" className="min-h-screen flex flex-col justify-center py-6 px-4 max-w-7xl mx-auto w-full">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="flex flex-col items-center text-center mb-10 gap-3"
+        className="flex flex-col items-center text-center mb-6 gap-2"
       >
         <div className="flex items-center gap-3">
           <div className="h-px w-12 bg-white/20" />
@@ -76,12 +76,12 @@ export function Footer() {
           Let&apos;s <span className="gradient-aurora">Connect</span>
         </h2>
         <p className="text-white/40 max-w-md text-sm leading-relaxed">
-          Have a project in mind or just want to say hi? I&apos;m always open to discussing new opportunities and ideas.
+          Open to new opportunities in full‑stack development and AI. Let&apos;s connect and build something great together.
         </p>
       </motion.div>
 
       {/* Two-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 mb-16">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 mb-8">
 
         {/* Left — Contact form */}
         <motion.div
@@ -92,9 +92,9 @@ export function Footer() {
           className="rounded-3xl p-6 bg-white/[0.04] backdrop-blur-xl border border-purple-500/[0.2] border-l-2 border-l-violet-400/60"
         >
           <h3 className="text-xl font-bold mb-1">Send a Message</h3>
-          <p className="text-white/40 text-sm mb-5">I&apos;ll get back to you within 24 hours.</p>
+          <p className="text-white/40 text-sm mb-4">I&apos;ll get back to you within 24 hours.</p>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <div className="flex flex-col gap-1.5">
               <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 flex items-center gap-2">
                 <span className="text-violet-400">✦</span> Your Name
@@ -160,7 +160,7 @@ export function Footer() {
         >
           {/* Direct Contact */}
           <div>
-            <h3 className="text-base font-bold mb-4 flex items-center gap-2">
+            <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
               <Send className="w-4 h-4 text-violet-400" /> Direct Contact
             </h3>
             <div className="flex flex-col gap-2">
@@ -169,7 +169,7 @@ export function Footer() {
                   key={label}
                   whileHover={{ x: 4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="rounded-2xl p-4 flex items-center gap-4 group bg-white/[0.04] backdrop-blur-sm border border-purple-500/[0.15] hover:border-purple-400/40 hover:shadow-[0_0_14px_rgba(168,85,247,0.2)] transition-all"
+                  className="rounded-2xl p-3 flex items-center gap-3 group bg-white/[0.04] backdrop-blur-sm border border-purple-500/[0.15] hover:border-purple-400/40 hover:shadow-[0_0_14px_rgba(168,85,247,0.2)] transition-all"
                 >
                   <div className="w-9 h-9 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center shrink-0">
                     <Icon className="w-4 h-4 text-violet-400" />
@@ -191,8 +191,8 @@ export function Footer() {
 
           {/* Social Presence */}
           <div>
-            <h3 className="text-base font-bold mb-4">Social Presence</h3>
-            <div className="flex gap-3">
+            <h3 className="text-sm font-bold mb-3">Social Presence</h3>
+            <div className="flex gap-2">
               {socials.map(({ icon: Icon, href, label }) => (
                 <motion.a
                   key={label}
@@ -213,7 +213,7 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/5 gap-4">
+      <div className="flex flex-col md:flex-row items-center justify-between pt-6 border-t border-white/5 gap-3">
         <div className="text-xs text-muted font-mono flex items-center gap-2">
           DESIGNED WITH <Heart className="w-3 h-3 text-red-500 fill-red-500" /> BY ANDER MAÑAS
         </div>

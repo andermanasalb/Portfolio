@@ -20,7 +20,7 @@ const projects: { title: string; description: string; image: string; tags: strin
     title: "DeepKnight",
     description: "Full-stack chess app combining a custom alpha-beta negamax engine, a PyTorch neural network, and a Gemini-powered coaching layer. Three difficulty levels, real-time evaluation, and an LLM coach that explains every move.",
     image: "/SocialPreview Deepknight.png",
-    tags: ["React", "TypeScript", "FastAPI", "PyTorch", "Google Gemini", "PostgreSQL", "Docker"],
+    tags: ["React", "Python", "FastAPI", "PyTorch", "Google Gemini", "PostgreSQL", "Docker"],
     live: "https://deep-knight.vercel.app",
     github: "https://github.com/andermanasalb/DeepKnight"
   },
@@ -81,7 +81,7 @@ export function Projects() {
         <div className="flex flex-col items-center space-y-4 max-w-xl text-center">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">The <span className="gradient-aurora">Digital Vault</span></h2>
           <p className="text-muted">
-            Real-world projects built with clean architecture, TDD, and AI integration.
+            A curated selection of projects that made me confident in building software.
           </p>
         </div>
 
