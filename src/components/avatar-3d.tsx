@@ -22,7 +22,7 @@ export function Avatar3D({ mouseX, mouseY }: Avatar3DProps) {
         {/* Tamaño del avatar incrementado un 30% (de w-36 pasó a w-48) */}
         <div className="relative w-32 h-32 md:w-48 md:h-48 z-10 drop-shadow-[0_10px_30px_rgba(139,92,246,0.3)]">
           <img
-            src="/Avatar-me.png"
+            src="/me-avatar.png"
             alt="Ander"
             className="w-full h-full object-contain object-center scale-110"
           />

@@ -36,14 +36,19 @@ export function GlobalBackground() {
       {/* Mouse glow — sigue el cursor */}
       <div className="mouse-glow absolute inset-0" />
 
-      {/* Blob 1 — violet, top-left */}
-      <div className="animate-blob absolute -top-32 -left-20 w-[650px] h-[650px] rounded-full bg-violet-600/[0.14] blur-[130px]" />
-      {/* Blob 2 — indigo, top-right */}
-      <div className="animate-blob delay-2000 absolute -top-16 -right-32 w-[550px] h-[550px] rounded-full bg-indigo-500/[0.11] blur-[120px]" />
-      {/* Blob 3 — teal, bottom-center */}
-      <div className="animate-blob delay-4000 absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-teal-500/[0.09] blur-[140px]" />
-      {/* Blob 4 — rose, bottom-left */}
-      <div className="animate-blob absolute -bottom-20 -left-10 w-[400px] h-[400px] rounded-full bg-rose-500/[0.07] blur-[100px]" />
+      {/* Blobs ambientales optimizados con menos blur y will-change */}
+      <div 
+        className="animate-blob absolute -top-32 -left-20 w-[650px] h-[650px] rounded-full bg-violet-600/[0.12] blur-[80px] will-change-transform" 
+      />
+      <div 
+        className="animate-blob delay-2000 absolute -top-16 -right-32 w-[550px] h-[550px] rounded-full bg-indigo-500/[0.09] blur-[70px] will-change-transform" 
+      />
+      <div 
+        className="animate-blob delay-4000 absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-teal-500/[0.07] blur-[90px] will-change-transform" 
+      />
+      <div 
+        className="animate-blob absolute -bottom-20 -left-10 w-[400px] h-[400px] rounded-full bg-rose-500/[0.05] blur-[60px] will-change-transform" 
+      />
     </div>
   )
 }
