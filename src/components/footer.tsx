@@ -57,7 +57,7 @@ export function Footer() {
   }
 
   return (
-    <footer id="contact" className="min-h-screen flex flex-col justify-center py-6 px-4 max-w-7xl mx-auto w-full">
+    <footer id="contact" className="min-h-screen flex flex-col justify-center py-6 px-4 pl-20 md:pl-28 max-w-[1200px] mx-auto w-full">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -89,7 +89,7 @@ export function Footer() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ type: "spring", damping: 20, stiffness: 80 }}
-          className="rounded-3xl p-6 bg-white/[0.04] backdrop-blur-xl border border-purple-500/[0.2] border-l-2 border-l-violet-400/60"
+          className="rounded-3xl p-6 bg-white/[0.04] backdrop-blur-xl border border-purple-500/[0.2]"
         >
           <h3 className="text-xl font-bold mb-1">Send a Message</h3>
           <p className="text-white/40 text-sm mb-4">I&apos;ll get back to you within 24 hours.</p>
