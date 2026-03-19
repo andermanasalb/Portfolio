@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Dark navy-black — no pure black, da profundidad */
+  --color-background: #07070f;
+  --color-surface:    #07070f;
+  --color-accent:     #FFFFFF;
+  --color-muted:      #888888;
+  --color-border-glass: rgba(255, 255, 255, 0.06);
+
+  --radius-xs:  0.125rem;
+  --radius-sm:  0.25rem;
+  --radius-md:  0.5rem;
+  --radius-lg:  0.75rem;
+  --radius-xl:  1rem;
+  --radius-2xl: 1.5rem;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.05em;
+  }
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border-glass, currentColor);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-accent);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(12, 10, 28, 0.55);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(168, 85, 247, 0.12);
+  }
+
+  .spotlight-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spotlight-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      400px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.05),
+      transparent 40%
+    );
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Ambient decorative blob */
+  .ambient-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(120px);
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  /* Gradient text — white to gray (subtle) */
+  .gradient-text {
+    background: linear-gradient(135deg, #ffffff 0%, #666666 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Aurora gradient — flowing cyan → violet → pink */
+  .gradient-aurora {
+    background: linear-gradient(90deg, #22d3ee 0%, #a855f7 40%, #ec4899 70%, #22d3ee 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: aurora-shift 5s linear infinite;
+  }
+
+  /* Violet gradient — purple → indigo (static, softer) */
+  .gradient-violet {
+    background: linear-gradient(135deg, #c084fc 0%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Section separator */
+  .section-separator {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.07) 30%,
+      rgba(255, 255, 255, 0.07) 70%,
+      transparent
+    );
+  }
+
+  /* Mouse-following glow — actualizado por JS via CSS custom properties */
+  .mouse-glow {
+    background: radial-gradient(
+      900px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+      rgba(120, 60, 255, 0.07),
+      transparent 60%
+    );
+  }
+}
+
+/* Aurora text shift */
+@keyframes aurora-shift {
+  from { background-position: 0% center; }
+  to   { background-position: 200% center; }
+}
+
+/* Blob morph animation */
+@keyframes blob {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  33%  { transform: translate(50px, -70px) scale(1.1); }
+  66%  { transform: translate(-40px, 35px) scale(0.92); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+.animate-blob { animation: blob 10s infinite ease-in-out; }
+.delay-2000   { animation-delay: 2.5s; }
+.delay-4000   { animation-delay: 5s; }
+
+/* Grain texture overlay sutil */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  mix-blend-mode: overlay;
+}
+
+/* Hide native cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+/* Remove tap highlight and focus outlines globally */
+*, *:focus, *:active, *:focus-visible {
+  -webkit-tap-highlight-color: transparent !important;
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
+/* Prevent text cursor from appearing on non-interactive text */
+h1, h2, h3, h4, h5, h6, p, span, li {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: none !important;
+}
