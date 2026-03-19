@@ -171,3 +171,10 @@ h1, h2, h3, h4, h5, h6, p, span, li {
   -webkit-user-select: none;
   cursor: none !important;
 }
+
+/* Hide navigation in chat fullscreen */
+body.chat-fullscreen nav.fixed {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
