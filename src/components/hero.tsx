@@ -91,7 +91,7 @@ export function Hero() {
 
   const promptQuickLink = (label: string) => {
     const prompts: Record<string, string> = {
-      "Me": "Tell me more about Ander's background and engineering mindset.",
+      "Me": "Tell me more about Ander's background, engineering mindset, and personal interests.",
       "Education": "What are Ander's most relevant studies in software and aerospace?",
       "Tech Stack": "What is Ander's current tech stack and core skills?",
       "Projects": "Explain the most important projects Ander has built recently.",
@@ -102,49 +102,45 @@ export function Hero() {
 
   return (
     <section id="home" className="relative h-screen flex flex-col items-center justify-center px-6 overflow-hidden">
-      <div className={cn("relative z-10 flex flex-col items-center w-full max-w-5xl h-full transition-all duration-500", isChatWindowOpen && !isFullscreen ? "pt-2 md:pt-4 pb-2 md:pb-4" : "pt-4 md:pt-12 pb-8 md:pb-16")}>
+      <div className={cn("relative z-10 flex flex-col items-center w-full max-w-5xl h-full transition-all", isChatWindowOpen && !isFullscreen ? "pt-0 pb-2 md:pb-4" : "pt-4 md:pt-12 pb-8 md:pb-16")}>
         
         {/* Title Section (Visible when Window is CLOSED/MINIMIZED) */}
-        <AnimatePresence mode="wait">
-          {!isChatWindowOpen && (
-            <motion.div
-              key="hero-title"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: -50 }}
-              className="flex flex-col items-center mb-2 md:mb-4"
-            >
-              <h1 className="flex flex-col items-center text-center font-black tracking-tighter">
-                <span className="text-lg md:text-xl text-white/80 mb-1 font-semibold">
-                  Hey, I&apos;m <span className="text-white">Ander</span> 👋
-                </span>
-                <span className="block text-2xl md:text-4xl lg:text-5xl tracking-tighter py-1">
-                  <span className="gradient-aurora">FULL STACK ENGINEER</span>
-                  <span className="text-white/20 font-light mx-4 hidden lg:inline">|</span>
-                  <span className="gradient-aurora block lg:inline mt-1 lg:mt-0">AI DEVELOPER</span>
-                </span>
-              </h1>
-              <div className="mt-4 flex items-center justify-center gap-3">
-                <Link href="#contact" className="px-5 py-2.5 bg-violet-600 hover:bg-violet-500 text-white font-bold text-[10px] md:text-[11px] tracking-widest rounded-xl transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)]">
-                  LET&apos;S COLLABORATE <UserPlus className="inline w-3.5 h-3.5 ml-1 mb-0.5" />
-                </Link>
-                <a href="/Ander_manas_CV.pdf" download className="px-5 py-2.5 bg-white/[0.03] hover:bg-white/[0.08] text-white/90 font-bold text-[10px] md:text-[11px] tracking-widest rounded-xl border border-white/10 transition-all">
-                  GET RESUME <Download className="inline w-3.5 h-3.5 ml-1 mb-0.5" />
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {!isChatWindowOpen && (
+          <motion.div
+            key="hero-title"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            className="flex flex-col items-center mb-2 md:mb-4"
+          >
+            <h1 className="flex flex-col items-center text-center font-black tracking-tighter">
+              <span className="text-lg md:text-xl text-white/80 mb-1 font-semibold">
+                Hey, I&apos;m <span className="text-white">Ander</span> 👋
+              </span>
+              <span className="block text-2xl md:text-4xl lg:text-5xl tracking-tighter py-1">
+                <span className="gradient-aurora">FULL STACK ENGINEER</span>
+                <span className="text-white/20 font-light mx-4 hidden lg:inline">|</span>
+                <span className="gradient-aurora block lg:inline mt-1 lg:mt-0">AI DEVELOPER</span>
+              </span>
+            </h1>
+            <div className="mt-4 flex items-center justify-center gap-3">
+              <Link href="#contact" className="px-5 py-2.5 bg-violet-600 hover:bg-violet-500 text-white font-bold text-[10px] md:text-[11px] tracking-widest rounded-xl transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)]">
+                LET&apos;S COLLABORATE <UserPlus className="inline w-3.5 h-3.5 ml-1 mb-0.5" />
+              </Link>
+              <a href="/Ander_manas_CV.pdf" download className="px-5 py-2.5 bg-white/[0.03] hover:bg-white/[0.08] text-white/90 font-bold text-[10px] md:text-[11px] tracking-widest rounded-xl border border-white/10 transition-all">
+                GET RESUME <Download className="inline w-3.5 h-3.5 ml-1 mb-0.5" />
+              </a>
+            </div>
+          </motion.div>
+        )}
 
         {/* 3D Avatar (Only visible when chat is NOT open) */}
         {!isFullscreen && !isChatWindowOpen && (
           <motion.div
-            animate={{ 
-              y: 0, 
-              scale: 1,
-              height: "240px"
-            }}
-            className="relative flex items-center justify-center w-full z-20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="relative flex items-center justify-center w-full z-20 h-[240px]"
           >
             <div className="w-[280px] h-[240px] flex items-center justify-center">
               <Avatar3D mouseX={mouseX} mouseY={mouseY} />
@@ -156,19 +152,19 @@ export function Hero() {
           <AnimatePresence mode="wait">
             {isChatWindowOpen && (
               <motion.div 
-                layoutId="chat-ui"
-                initial={{ opacity: 0, scale: 0.9, y: 20 }} 
-                animate={{ opacity: 1, scale: 1, y: 0 }} 
-                exit={{ opacity: 0, scale: 0.9, y: 20 }} 
+                key="chat-window"
+                initial={{ opacity: 0, y: 10 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                exit={{ opacity: 0, y: 10 }} 
                 className={cn(
-                  "flex flex-col transition-all duration-500",
+                  "flex flex-col flex-shrink-0",
                   isFullscreen 
                     ? "fixed inset-0 z-[1000] bg-[#0c0c14] h-screen w-screen" 
-                    : "relative w-full max-w-4xl h-[75vh] md:h-[82vh] py-2"
+                    : "relative w-full max-w-4xl min-w-[320px] md:min-w-[896px] h-[72vh] min-h-[72vh] max-h-[72vh] py-2"
                 )}
               >
                 <div className={cn(
-                   "bg-[#0c0c14] backdrop-blur-3xl flex-1 flex flex-col overflow-hidden shadow-2xl transition-all duration-500",
+                   "bg-[#0c0c14] backdrop-blur-3xl flex-1 flex flex-col overflow-hidden shadow-2xl",
                    isFullscreen ? "rounded-none border-none" : "rounded-2xl border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)]"
                 )}>
                   {/* macOS Window Header */}
@@ -214,7 +210,6 @@ export function Hero() {
                     {messages.map((msg, idx) => (
                       <motion.div
                         key={idx}
-                        layout
                         initial={{ opacity: 0, x: msg.role === 'user' ? 15 : -15, y: 10 }}
                         animate={{ opacity: 1, x: 0, y: 0 }}
                         className={cn(
@@ -223,14 +218,14 @@ export function Hero() {
                         )}
                       >
                         <div className={cn(
-                          "relative px-6 py-4 rounded-2xl text-[14px] leading-relaxed transition-all",
+                          "relative px-6 py-4 rounded-2xl text-[14px] leading-relaxed",
                           msg.role === "user" 
                             ? "bg-violet-600 border border-violet-500/50 text-white rounded-tr-sm shadow-[0_0_30px_rgba(139,92,246,0.2)]" 
                             : "bg-white/[0.05] border border-white/10 text-white/90 rounded-tl-sm backdrop-blur-md ml-14",
                           isFullscreen ? "max-w-[70%]" : "max-w-[85%] md:max-w-[75%]"
                         )}>
                           {msg.role === "assistant" && (
-                            <div className="absolute -left-16 top-0 hidden md:flex w-12 h-12 items-center justify-center transition-all duration-500">
+                            <div className="absolute -left-16 top-0 hidden md:flex w-12 h-12 items-center justify-center">
                               <img src="/me-avatar.png" alt="Ander Avatar" className="w-full h-full object-contain" />
                             </div>
                           )}
@@ -252,7 +247,7 @@ export function Hero() {
                     )}
                   </div>
 
-                  {/* Integrated input in FULLSCREEN - Mimic Home's chatting style */}
+                  {/* Integrated input in FULLSCREEN */}
                   {isFullscreen && (
                     <div className="p-4 md:px-[20vw] pb-8 border-t border-white/5 bg-white/[0.01] mt-auto">
                        <div className="max-w-3xl mx-auto flex flex-col items-center gap-1">
