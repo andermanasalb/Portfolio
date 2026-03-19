@@ -11,9 +11,9 @@ export function CustomCursor() {
   const glowX = useSpring(mouseX, { stiffness: 180, damping: 28, restDelta: 0.001 })
   const glowY = useSpring(mouseY, { stiffness: 180, damping: 28, restDelta: 0.001 })
 
-  // Inner dot — near-instant, no overshoot
-  const dotX = useSpring(mouseX, { stiffness: 800, damping: 50, restDelta: 0.001 })
-  const dotY = useSpring(mouseY, { stiffness: 800, damping: 50, restDelta: 0.001 })
+  // Inner dot — much more responsive
+  const dotX = useSpring(mouseX, { stiffness: 1500, damping: 65, restDelta: 0.001 })
+  const dotY = useSpring(mouseY, { stiffness: 1500, damping: 65, restDelta: 0.001 })
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
