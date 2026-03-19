@@ -28,9 +28,6 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Portfolio | World-Class Full Stack Engineer",
   description: "High-end Full Stack Developer Portfolio",
-  icons: {
-    icon: "/AMLogo.png",
-  },
 };
 
 export default function RootLayout({
