@@ -245,6 +245,23 @@ function DeckPhotos() {
 
   return (
     <div className="relative w-full h-[140px] sm:h-[150px] my-3 flex justify-center items-center">
+      {/* Click instruction - only shows when nothing is clicked */}
+      <motion.div
+        animate={{ 
+          opacity: clickedIndex !== null ? 0 : [0.3, 0.8, 0.3],
+          scale: clickedIndex !== null ? 0.9 : 1
+        }}
+        transition={{ 
+          opacity: clickedIndex !== null ? { duration: 0.2 } : { duration: 2, repeat: Infinity, ease: "easeInOut" },
+          scale: { duration: 0.3 }
+        }}
+        className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap pointer-events-none"
+      >
+        <span className="text-[7px] font-black uppercase tracking-[0.2em] text-white/30">
+          - Click to show -
+        </span>
+      </motion.div>
+
       {cards.map((c, i) => {
         const isClicked = clickedIndex === i;
         const isOtherClicked = clickedIndex !== null && clickedIndex !== i;
@@ -351,15 +368,6 @@ export function About() {
           <div className="h-0.5 w-8 bg-purple-500/50 rounded-full mb-4" />
           
           <div className="relative group/deck">
-            <motion.div
-              animate={{ opacity: [0.3, 0.8, 0.3] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap pointer-events-none"
-            >
-              <span className="text-[7px] font-black uppercase tracking-[0.2em] text-white/30">
-                - Click to show -
-              </span>
-            </motion.div>
             <DeckPhotos />
           </div>
 
