@@ -18,7 +18,7 @@ const quickLinks = [
 export function Hero() {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
-  const [messages, setMessages] = React.useState<{role: 'user' | 'assistant', content: string}[]>([])
+  const [messages, setMessages] = React.useState<{ role: 'user' | 'assistant', content: string }[]>([])
   const [inputValue, setInputValue] = React.useState("")
   const [isLoading, setIsLoading] = React.useState(false)
   const [showPills, setShowPills] = React.useState(true)
@@ -47,7 +47,7 @@ export function Hero() {
       document.body.style.overflow = "unset"
       document.body.classList.remove("chat-fullscreen")
     }
-    return () => { 
+    return () => {
       document.body.style.overflow = "unset";
       document.body.classList.remove("chat-fullscreen")
     }
@@ -69,7 +69,7 @@ export function Hero() {
     setIsLoading(true)
     setIsMinimized(false) // Always restore if user sends msg
     setInputValue("")
-    
+
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
@@ -102,8 +102,8 @@ export function Hero() {
 
   return (
     <section id="home" className="relative h-[100dvh] flex flex-col items-center justify-center px-6 overflow-hidden">
-      <div className={cn("relative z-10 flex flex-col items-center w-full max-w-5xl h-full", isChatWindowOpen && !isFullscreen ? "pt-0 pb-2 md:pb-4" : "pt-4 md:pt-12 pb-8 md:pb-16")}>
-        
+      <div className={cn("relative z-10 flex flex-col items-center w-full max-w-5xl h-full", isChatWindowOpen && !isFullscreen ? "pt-2 md:pt-4 pb-2 md:pb-4" : "pt-4 md:pt-12 pb-8 md:pb-16")}>
+
         {/* Title Section */}
         {!isChatWindowOpen && (
           <motion.div
@@ -148,59 +148,59 @@ export function Hero() {
           </motion.div>
         )}
 
-        <div className="flex-1 flex flex-col items-center w-full min-h-0 relative">
+        <div className={cn("flex-1 flex flex-col items-center w-full min-h-0 relative", isChatWindowOpen && "mb-2.5")}>
           <AnimatePresence>
             {isChatWindowOpen && (
-              <motion.div 
+              <motion.div
                 key="chat-window"
-                initial={{ opacity: 0, y: 10 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                exit={{ opacity: 0, y: 10 }} 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
                 className={cn(
-                  "flex flex-col flex-shrink-0",
-                  isFullscreen 
-                    ? "fixed inset-0 z-[1000] bg-[#0c0c14] h-[100dvh] w-screen" 
-                    : "relative w-full max-w-4xl md:min-w-[896px] h-[60dvh] md:h-[72dvh] min-h-[60dvh] md:min-h-[72dvh] max-h-[60dvh] md:max-h-[72dvh] py-2"
+                  "flex flex-col flex-1 min-h-0",
+                  isFullscreen
+                    ? "fixed inset-0 z-[1000] bg-[#0c0c14] h-[100dvh] w-screen"
+                    : "relative w-full max-w-4xl md:min-w-[896px] flex-1 py-1"
                 )}
               >
                 <div className={cn(
-                   "bg-[#0c0c14] backdrop-blur-3xl flex-1 flex flex-col overflow-hidden shadow-2xl",
-                   isFullscreen ? "rounded-none border-none" : "rounded-2xl border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)]"
+                  "bg-[#0c0c14] backdrop-blur-3xl flex-1 flex flex-col overflow-hidden shadow-2xl",
+                  isFullscreen ? "rounded-none border-none" : "rounded-2xl border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)]"
                 )}>
                   {/* macOS Window Header */}
                   <div className="flex items-center px-5 py-3 border-b border-white/5 bg-white/[0.03] select-none group/header">
                     <div className="flex gap-2 relative">
-                       <button 
-                        onClick={() => { setMessages([]); setIsFullscreen(false); setIsMinimized(false); }} 
+                      <button
+                        onClick={() => { setMessages([]); setIsFullscreen(false); setIsMinimized(false); }}
                         className="w-3.5 h-3.5 rounded-full bg-[#ff5f56] hover:brightness-110 flex items-center justify-center group/red transition-all shadow-[0_0_8px_rgba(255,95,86,0.3)]"
-                       >
-                         <span className="text-[9px] text-black opacity-0 group-hover/header:opacity-100 transition-opacity">✕</span>
-                       </button>
-                       <button 
-                        onClick={() => { setIsMinimized(true); setIsFullscreen(false); }} 
+                      >
+                        <span className="text-[9px] text-black opacity-0 group-hover/header:opacity-100 transition-opacity">✕</span>
+                      </button>
+                      <button
+                        onClick={() => { setIsMinimized(true); setIsFullscreen(false); }}
                         className="w-3.5 h-3.5 rounded-full bg-[#ffbd2e] hover:brightness-110 flex items-center justify-center group/yellow transition-all shadow-[0_0_8px_rgba(255,189,46,0.3)]"
-                       >
-                         <span className="text-[9px] text-black font-bold -mt-0.5 opacity-0 group-hover/header:opacity-100 transition-opacity">−</span>
-                       </button>
-                       <button 
-                        onClick={() => setIsFullscreen(!isFullscreen)} 
+                      >
+                        <span className="text-[9px] text-black font-bold -mt-0.5 opacity-0 group-hover/header:opacity-100 transition-opacity">−</span>
+                      </button>
+                      <button
+                        onClick={() => setIsFullscreen(!isFullscreen)}
                         className="w-3.5 h-3.5 rounded-full bg-[#27c93f] hover:brightness-110 flex items-center justify-center group/green transition-all shadow-[0_0_8px_rgba(39,201,63,0.3)]"
-                       >
-                         <span className="text-[7px] text-black opacity-0 group-hover/header:opacity-100 transition-opacity">▲</span>
-                       </button>
+                      >
+                        <span className="text-[7px] text-black opacity-0 group-hover/header:opacity-100 transition-opacity">▲</span>
+                      </button>
                     </div>
                     <div className="flex-1 flex justify-center -ml-16">
-                       <div className="flex items-center gap-2">
-                          <div className={cn("w-1.5 h-1.5 rounded-full animate-pulse", isFullscreen ? "bg-purple-500" : "bg-emerald-500")} />
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-white/30">
-                            {isFullscreen ? "Neural Core (Root Access)" : "Assistant Terminal"}
-                          </span>
-                       </div>
+                      <div className="flex items-center gap-2">
+                        <div className={cn("w-1.5 h-1.5 rounded-full animate-pulse", isFullscreen ? "bg-purple-500" : "bg-emerald-500")} />
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/30">
+                          {isFullscreen ? "Neural Core (Root Access)" : "Assistant Terminal"}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
                   {/* Messages Area */}
-                  <div 
+                  <div
                     ref={scrollRef}
                     className={cn(
                       "flex-1 overflow-y-auto p-4 custom-scrollbar scroll-smooth",
@@ -219,8 +219,8 @@ export function Hero() {
                       >
                         <div className={cn(
                           "relative px-6 py-4 rounded-2xl text-[14px] leading-relaxed",
-                          msg.role === "user" 
-                            ? "bg-violet-600 border border-violet-500/50 text-white rounded-tr-sm shadow-[0_0_30px_rgba(139,92,246,0.2)]" 
+                          msg.role === "user"
+                            ? "bg-violet-600 border border-violet-500/50 text-white rounded-tr-sm shadow-[0_0_30px_rgba(139,92,246,0.2)]"
                             : "bg-white/[0.05] border border-white/10 text-white/90 rounded-tl-sm backdrop-blur-md ml-14",
                           isFullscreen ? "max-w-[70%]" : "max-w-[85%] md:max-w-[75%]"
                         )}>
@@ -235,14 +235,14 @@ export function Hero() {
                         </div>
                       </motion.div>
                     ))}
-                    
+
                     {isLoading && (
                       <div className="flex justify-start ml-14">
-                         <div className="bg-white/[0.05] border border-white/10 px-6 py-4 rounded-2xl rounded-tl-sm flex gap-1.5 items-center">
-                            <span className="w-2 h-2 bg-violet-500 rounded-full animate-bounce [animation-duration:0.6s]" />
-                            <span className="w-2 h-2 bg-violet-500 rounded-full animate-bounce [animation-duration:0.6s] [animation-delay:0.2s]" />
-                            <span className="w-2 h-2 bg-violet-500 rounded-full animate-bounce [animation-duration:0.6s] [animation-delay:0.4s]" />
-                         </div>
+                        <div className="bg-white/[0.05] border border-white/10 px-6 py-4 rounded-2xl rounded-tl-sm flex gap-1.5 items-center">
+                          <span className="w-2 h-2 bg-violet-500 rounded-full animate-bounce [animation-duration:0.6s]" />
+                          <span className="w-2 h-2 bg-violet-500 rounded-full animate-bounce [animation-duration:0.6s] [animation-delay:0.2s]" />
+                          <span className="w-2 h-2 bg-violet-500 rounded-full animate-bounce [animation-duration:0.6s] [animation-delay:0.4s]" />
+                        </div>
                       </div>
                     )}
                   </div>
@@ -250,30 +250,30 @@ export function Hero() {
                   {/* Integrated input in FULLSCREEN */}
                   {isFullscreen && (
                     <div className="p-4 md:px-[20vw] pb-8 border-t border-white/5 bg-white/[0.01] mt-auto">
-                       <div className="max-w-3xl mx-auto flex flex-col items-center gap-1">
-                            <div className="flex flex-col items-center gap-1.5 mb-1.5">
-                                <button onClick={() => setShowPills(!showPills)} className="text-[9px] text-white/30 hover:text-white/60 tracking-[0.2em] uppercase transition-colors">
-                                  {showPills ? "▼ Hide quick questions" : "▲ Show quick questions"}
+                      <div className="max-w-3xl mx-auto flex flex-col items-center gap-1">
+                        <div className="flex flex-col items-center gap-1.5 mb-1.5">
+                          <button onClick={() => setShowPills(!showPills)} className="text-[9px] text-white/30 hover:text-white/60 tracking-[0.2em] uppercase transition-colors">
+                            {showPills ? "▼ Hide quick questions" : "▲ Show quick questions"}
+                          </button>
+                          {showPills && (
+                            <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap justify-center gap-1.5">
+                              {quickLinks.map(item => (
+                                <button key={item.label} onClick={() => promptQuickLink(item.label)} className="px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/5 hover:bg-white/[0.08] transition-all flex items-center gap-2">
+                                  <item.icon className={cn("w-3.5 h-3.5", item.color)} />
+                                  <span className="text-[10px] text-white/50">{item.label}</span>
                                 </button>
-                                {showPills && (
-                                  <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap justify-center gap-1.5">
-                                    {quickLinks.map(item => (
-                                      <button key={item.label} onClick={() => promptQuickLink(item.label)} className="px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/5 hover:bg-white/[0.08] transition-all flex items-center gap-2">
-                                        <item.icon className={cn("w-3.5 h-3.5", item.color)} />
-                                        <span className="text-[10px] text-white/50">{item.label}</span>
-                                      </button>
-                                    ))}
-                                  </motion.div>
-                                )}
-                            </div>
-                          <div className="w-full relative">
-                            <div className="relative flex items-center rounded-2xl bg-white/[0.04] backdrop-blur-3xl border border-white/10 pr-1.5">
-                              <Search className="absolute left-6 w-5 h-5 text-white/20" />
-                              <input type="text" value={inputValue} onChange={e => setInputValue(e.target.value)} onKeyDown={e => e.key === "Enter" && handleChat(inputValue)} placeholder="Reply..." className="w-full bg-transparent pl-15 pr-18 py-3.5 text-sm text-white outline-none" />
-                              <button onClick={() => handleChat(inputValue)} disabled={isLoading} className="absolute right-3 w-8 h-8 rounded-xl bg-violet-600 flex items-center justify-center disabled:opacity-50 transition-all hover:scale-105 active:scale-95"><ArrowRight className="w-4 h-4 text-white" /></button>
-                            </div>
+                              ))}
+                            </motion.div>
+                          )}
+                        </div>
+                        <div className="w-full relative">
+                          <div className="relative flex items-center rounded-2xl bg-white/[0.04] backdrop-blur-3xl border border-white/10 pr-1.5">
+                            <Search className="absolute left-6 w-5 h-5 text-white/20" />
+                            <input type="text" value={inputValue} onChange={e => setInputValue(e.target.value)} onKeyDown={e => e.key === "Enter" && handleChat(inputValue)} placeholder="Reply..." className="w-full bg-transparent pl-15 pr-18 py-3.5 text-sm text-white outline-none" />
+                            <button onClick={() => handleChat(inputValue)} disabled={isLoading} className="absolute right-3 w-8 h-8 rounded-xl bg-violet-600 flex items-center justify-center disabled:opacity-50 transition-all hover:scale-105 active:scale-95"><ArrowRight className="w-4 h-4 text-white" /></button>
                           </div>
-                       </div>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -283,9 +283,9 @@ export function Hero() {
             {isMinimized && (
               <motion.button
                 layoutId="chat-ui"
-                onClick={() => { 
-                  setIsMinimized(false); 
-                  setIsFullscreen(false); 
+                onClick={() => {
+                  setIsMinimized(false);
+                  setIsFullscreen(false);
                   const homeElement = document.getElementById('home');
                   if (homeElement) {
                     homeElement.scrollIntoView({ behavior: 'smooth' });
@@ -308,41 +308,41 @@ export function Hero() {
 
         {/* BOTTOM UI SECTION */}
         {!isFullscreen && (
-          <motion.div 
+          <motion.div
             className={cn("w-full flex flex-col items-center gap-2 md:gap-3 mt-auto", isChatWindowOpen ? "mb-0 md:mb-1" : "mb-4 md:mb-8")}
           >
             {isChatWindowOpen && (
-               <div className="flex flex-col items-center gap-1 mb-1">
-                  <button onClick={() => setShowPills(!showPills)} className="text-[10px] text-white/30 hover:text-white/60 tracking-widest uppercase mb-0.5">
-                    {showPills ? "▼ Hide quick questions" : "▲ Show quick questions"}
-                  </button>
-                  {showPills && (
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap justify-center gap-2">
-                      {quickLinks.map(item => (
-                        <button key={item.label} onClick={() => promptQuickLink(item.label)} className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/5 hover:bg-white/[0.08] transition-all flex items-center gap-2">
-                          <item.icon className={cn("w-3.5 h-3.5", item.color)} />
-                          <span className="text-[11px] text-white/50">{item.label}</span>
-                        </button>
-                      ))}
-                    </motion.div>
-                  )}
-               </div>
+              <div className="flex flex-col items-center gap-1 mb-1">
+                <button onClick={() => setShowPills(!showPills)} className="text-[10px] text-white/30 hover:text-white/60 tracking-widest uppercase mb-0.5">
+                  {showPills ? "▼ Hide quick questions" : "▲ Show quick questions"}
+                </button>
+                {showPills && (
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap justify-center gap-2">
+                    {quickLinks.map(item => (
+                      <button key={item.label} onClick={() => promptQuickLink(item.label)} className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/5 hover:bg-white/[0.08] transition-all flex items-center gap-2">
+                        <item.icon className={cn("w-3.5 h-3.5", item.color)} />
+                        <span className="text-[11px] text-white/50">{item.label}</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </div>
             )}
 
             <div className={cn("w-full max-w-2xl relative", isChatWindowOpen && "max-w-xl transition-all")}>
               <div className="relative flex items-center rounded-2xl bg-white/[0.04] backdrop-blur-xl border border-white/10 pr-1.5 focus-within:border-purple-500/50 transition-all">
                 <Search className="absolute left-5 w-5 h-5 text-white/20" />
-                <input 
-                  type="text" 
-                  value={inputValue} 
-                  onChange={e => setInputValue(e.target.value)} 
-                  onKeyDown={e => e.key === "Enter" && handleChat(inputValue)} 
-                  placeholder={isChatWindowOpen ? "Reply..." : "Ask me anything..."} 
-                  className={cn("w-full bg-transparent pl-14 pr-16 text-white outline-none py-5", isChatWindowOpen ? "py-4 text-sm" : "py-5 text-sm md:text-base")} 
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={e => setInputValue(e.target.value)}
+                  onKeyDown={e => e.key === "Enter" && handleChat(inputValue)}
+                  placeholder={isChatWindowOpen ? "Reply..." : "Ask me anything..."}
+                  className={cn("w-full bg-transparent pl-14 pr-16 text-white outline-none py-5", isChatWindowOpen ? "py-4 text-sm" : "py-5 text-sm md:text-base")}
                 />
-                <button 
-                  onClick={() => handleChat(inputValue)} 
-                  disabled={isLoading} 
+                <button
+                  onClick={() => handleChat(inputValue)}
+                  disabled={isLoading}
                   className={cn("absolute right-3 rounded-xl bg-violet-600 flex items-center justify-center disabled:opacity-50 transition-all hover:scale-105 active:scale-95 shadow-lg", isChatWindowOpen ? "w-9 h-9" : "w-11 h-11")}
                 >
                   <ArrowRight className="w-5 h-5 text-white" />
@@ -353,9 +353,9 @@ export function Hero() {
             {!isChatWindowOpen && (
               <div className="flex gap-3 flex-wrap justify-center mt-2">
                 {quickLinks.map(item => (
-                  <button 
-                    key={item.label} 
-                    onClick={() => promptQuickLink(item.label)} 
+                  <button
+                    key={item.label}
+                    onClick={() => promptQuickLink(item.label)}
                     className="px-5 py-2.5 rounded-full border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/10 transition-all flex items-center gap-2 group"
                   >
                     <item.icon className={cn("w-4 h-4 transition-transform group-hover:scale-110", item.color)} />
