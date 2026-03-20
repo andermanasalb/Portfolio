@@ -135,7 +135,7 @@ function InfoColGroup() {
         >
           <div className="flex items-center justify-center px-4 py-1 rounded-full border border-white/5 bg-black/40 backdrop-blur-md">
             <span className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-[0.2em]">
-              - CLICK TO SHOW -
+              - Click to show -
             </span>
           </div>
         </motion.div>
@@ -349,7 +349,20 @@ export function About() {
         >
           <h3 className="text-xl md:text-2xl font-black tracking-tight mb-1 uppercase text-white">Beyond the CODE</h3>
           <div className="h-0.5 w-8 bg-purple-500/50 rounded-full mb-4" />
-          <DeckPhotos />
+          
+          <div className="relative group/deck">
+            <motion.div
+              animate={{ opacity: [0.3, 0.8, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap pointer-events-none"
+            >
+              <span className="text-[7px] font-black uppercase tracking-[0.2em] text-white/30">
+                - Click to show -
+              </span>
+            </motion.div>
+            <DeckPhotos />
+          </div>
+
           <p className="text-xs leading-relaxed text-white/70 mt-2">
             When I’m not building software or exploring new AI models, you’ll probably find me hiking in the mountains, staying active, or planning my next travel itinerary. I believe that stepping away from the screen is the best way to solve complex problems.
           </p>
