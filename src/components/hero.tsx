@@ -101,17 +101,17 @@ export function Hero() {
   }
 
   return (
-    <section id="home" className="relative h-screen flex flex-col items-center justify-center px-6 overflow-hidden">
-      <div className={cn("relative z-10 flex flex-col items-center w-full max-w-5xl h-full transition-all", isChatWindowOpen && !isFullscreen ? "pt-0 pb-2 md:pb-4" : "pt-4 md:pt-12 pb-8 md:pb-16")}>
+    <section id="home" className="relative h-[100dvh] flex flex-col items-center justify-center px-6 overflow-hidden">
+      <div className={cn("relative z-10 flex flex-col items-center w-full max-w-5xl h-full", isChatWindowOpen && !isFullscreen ? "pt-0 pb-2 md:pb-4" : "pt-4 md:pt-12 pb-8 md:pb-16")}>
         
-        {/* Title Section (Visible when Window is CLOSED/MINIMIZED) */}
+        {/* Title Section */}
         {!isChatWindowOpen && (
           <motion.div
             key="hero-title"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            className="flex flex-col items-center mb-2 md:mb-4"
+            className="flex flex-col items-center mb-2 md:mb-4 shrink-0"
           >
             <h1 className="flex flex-col items-center text-center font-black tracking-tighter">
               <span className="text-lg md:text-xl text-white/80 mb-1 font-semibold">
@@ -134,13 +134,13 @@ export function Hero() {
           </motion.div>
         )}
 
-        {/* 3D Avatar (Only visible when chat is NOT open) */}
+        {/* 3D Avatar */}
         {!isFullscreen && !isChatWindowOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="relative flex items-center justify-center w-full z-20 h-[240px]"
+            className="relative flex items-center justify-center w-full z-20 h-[240px] shrink-0"
           >
             <div className="w-[280px] h-[240px] flex items-center justify-center">
               <Avatar3D mouseX={mouseX} mouseY={mouseY} />
@@ -149,7 +149,7 @@ export function Hero() {
         )}
 
         <div className="flex-1 flex flex-col items-center w-full min-h-0 relative">
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {isChatWindowOpen && (
               <motion.div 
                 key="chat-window"
@@ -159,8 +159,8 @@ export function Hero() {
                 className={cn(
                   "flex flex-col flex-shrink-0",
                   isFullscreen 
-                    ? "fixed inset-0 z-[1000] bg-[#0c0c14] h-screen w-screen" 
-                    : "relative w-full max-w-4xl min-w-[320px] md:min-w-[896px] h-[72vh] min-h-[72vh] max-h-[72vh] py-2"
+                    ? "fixed inset-0 z-[1000] bg-[#0c0c14] h-[100dvh] w-screen" 
+                    : "relative w-full max-w-4xl md:min-w-[896px] h-[72dvh] min-h-[72dvh] max-h-[72dvh] py-2"
                 )}
               >
                 <div className={cn(
