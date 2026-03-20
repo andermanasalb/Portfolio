@@ -78,7 +78,7 @@ export async function POST(req: Request) {
 
     // Use the official JS/TS SDK with snake_case parameters for @google/genai
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
+      model: "gemini-3.1-flash-lite-preview",
       contents: message,
       config: {
         systemInstruction: systemPrompt,
