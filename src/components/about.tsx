@@ -123,13 +123,19 @@ function InfoColGroup() {
       {/* Desktop Hover View */}
       <div className="hidden md:block absolute inset-0">
         <motion.div
-          animate={{ opacity: isHoveringAny ? 0 : 1, y: isHoveringAny ? -10 : 0 }}
-          transition={{ duration: 0.3 }}
+          animate={{ 
+            opacity: isHoveringAny ? 0 : [0.4, 1, 0.4], 
+            y: isHoveringAny ? -10 : 0 
+          }}
+          transition={{ 
+            opacity: isHoveringAny ? { duration: 0.3 } : { duration: 2, repeat: Infinity, ease: "easeInOut" },
+            y: { duration: 0.3 }
+          }}
           className="absolute top-2 left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none z-30"
         >
           <div className="flex items-center justify-center px-4 py-1 rounded-full border border-white/5 bg-black/40 backdrop-blur-md">
-            <span className="text-[8px] font-black uppercase tracking-[0.2em] text-[#818cf8] ml-[0.2em]">
-              Hover to read more
+            <span className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-[0.2em]">
+              - CLICK TO SHOW -
             </span>
           </div>
         </motion.div>
@@ -382,6 +388,9 @@ export function About() {
             Building end-to-end software solutions where <strong className="text-white">architecture, security, and testability</strong> come first. 
           </p>
           <TagStrip />
+          <p className="text-xs leading-relaxed text-white/70 mt-4 mb-2">
+            Leveraging my aerospace background, I apply rigorous engineering standards to modern web development and Generative AI—designing clean, traceable systems that are reliable in production, not just in demos.
+          </p>
           <div className="flex flex-col gap-2 mt-auto pt-4 border-t border-white/[0.05]">
             <div className="flex items-start gap-2">
               <span className="w-1.5 h-1.5 mt-1 rounded-full bg-green-400 animate-pulse" />
