@@ -160,7 +160,7 @@ export function Hero() {
                   "flex flex-col flex-shrink-0",
                   isFullscreen 
                     ? "fixed inset-0 z-[1000] bg-[#0c0c14] h-[100dvh] w-screen" 
-                    : "relative w-full max-w-4xl md:min-w-[896px] h-[72dvh] min-h-[72dvh] max-h-[72dvh] py-2"
+                    : "relative w-full max-w-4xl md:min-w-[896px] h-[60dvh] md:h-[72dvh] min-h-[60dvh] md:min-h-[72dvh] max-h-[60dvh] md:max-h-[72dvh] py-2"
                 )}
               >
                 <div className={cn(

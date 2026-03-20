@@ -17,7 +17,7 @@ const infoCols = [
     body: "Transitioning into full-stack development, building modern, AI-enhanced solutions through hands-on projects and product-focused development. I bring an aerospace engineering approach to software: clear architecture, high reliability, and a \"zero critical error\" standard in execution.",
   },
   {
-    title: "Recent Education",
+    title: "Education",
     body: "Completed a Master’s in AI-Driven Software Development at Universidad Isabel I, complemented by IBM’s Generative AI professional training. My path combines deep software fundamentals with modern full-stack development and applied AI for real-world products.",
   },
 ]
@@ -80,20 +80,34 @@ function InfoCol({ col, isHovered, isDefault, index }: { col: typeof infoCols[0]
         "absolute top-14 w-[46%] sm:w-[42%] h-auto p-3 sm:p-4 flex flex-col gap-1 sm:gap-1.5 rounded-2xl border transition-colors duration-300",
         "bg-[#11111a] shadow-2xl",
         isHovered ? "border-purple-500/60 shadow-[0_0_40px_rgba(168,85,247,0.3)]" : "border-white/5 shadow-black/80",
-        textAlignClass
+        textAlignClass,
+        "hidden md:flex" // ONLY ON DESKTOP
       )}
       style={{
         left: index === 0 ? "2%" : index === 1 ? "50%" : "auto",
         right: index === 2 ? "2%" : "auto",
       }}
     >
-      <h3 className="text-[9px] sm:text-[10px] font-black tracking-normal text-white uppercase">
+      <h3 className="text-[10px] font-black tracking-normal text-white uppercase">
         {col.title}
       </h3>
-      <p className="text-[8px] sm:text-[9px] leading-[1.3] text-white/50 font-medium">
+      <p className="text-[9px] leading-[1.3] text-white/50 font-medium whitespace-pre-wrap">
         {col.body}
       </p>
     </motion.div>
+  )
+}
+
+function InfoMobileList() {
+  return (
+    <div className="flex flex-col gap-3 p-4 md:hidden">
+      {infoCols.map((col) => (
+        <div key={col.title} className="p-4 rounded-xl border border-white/5 bg-white/[0.02]">
+           <h3 className="text-[10px] font-black uppercase text-purple-400 mb-1">{col.title}</h3>
+           <p className="text-xs text-white/60 leading-relaxed">{col.body}</p>
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -102,35 +116,40 @@ function InfoColGroup() {
   const isHoveringAny = hoveredIndex !== null;
 
   return (
-    <div className="relative w-full h-[145px] overflow-hidden">
-      {/* HOVER TO READ MORE label */}
-      <motion.div
-        animate={{ opacity: isHoveringAny ? 0 : 1, y: isHoveringAny ? -10 : 0 }}
-        transition={{ duration: 0.3 }}
-        className="absolute top-2 left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none z-30"
-      >
-        <div className="flex items-center justify-center px-4 py-1 rounded-full border border-white/5 bg-black/40 backdrop-blur-md">
-          <span className="text-[8px] font-black uppercase tracking-[0.2em] text-[#818cf8] ml-[0.2em]">
-            Hover to read more
-          </span>
-        </div>
-      </motion.div>
+    <div className="relative w-full h-full">
+      {/* Mobile-Safe View */}
+      <InfoMobileList />
 
-      {infoCols.map((col, idx) => (
-        <div
-          key={col.title}
-          onMouseEnter={() => setHoveredIndex(idx)}
-          onMouseLeave={() => setHoveredIndex(null)}
-          className="contents"
+      {/* Desktop Hover View */}
+      <div className="hidden md:block absolute inset-0">
+        <motion.div
+          animate={{ opacity: isHoveringAny ? 0 : 1, y: isHoveringAny ? -10 : 0 }}
+          transition={{ duration: 0.3 }}
+          className="absolute top-2 left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none z-30"
         >
-          <InfoCol
-            col={col}
-            isHovered={hoveredIndex === idx}
-            isDefault={!isHoveringAny}
-            index={idx}
-          />
-        </div>
-      ))}
+          <div className="flex items-center justify-center px-4 py-1 rounded-full border border-white/5 bg-black/40 backdrop-blur-md">
+            <span className="text-[8px] font-black uppercase tracking-[0.2em] text-[#818cf8] ml-[0.2em]">
+              Hover to read more
+            </span>
+          </div>
+        </motion.div>
+
+        {infoCols.map((col, idx) => (
+          <div
+            key={col.title}
+            onMouseEnter={() => setHoveredIndex(idx)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            className="contents"
+          >
+            <InfoCol
+              col={col}
+              isHovered={hoveredIndex === idx}
+              isDefault={!isHoveringAny}
+              index={idx}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
@@ -168,7 +187,6 @@ function TagStrip() {
 function RadarMap() {
   return (
     <div className="relative w-full h-full overflow-hidden">
-      {/* Map Background — Much sharper and more defined */}
       <div
         className="absolute inset-0 opacity-100 grayscale contrast-[1.3] brightness-100"
         style={{
@@ -177,8 +195,6 @@ function RadarMap() {
           backgroundPosition: "center"
         }}
       />
-
-      {/* Vertical Neon Line — Sweeping Left to Right */}
       <motion.div
         animate={{ x: ["-500%", "500%"] }}
         transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
@@ -195,7 +211,7 @@ function RadarMap() {
 
 /* ─── Main component ────────────────────────────────────────────────────────── */
 
-const card = "rounded-2xl bg-white/[0.04] backdrop-blur-xl border border-purple-500/[0.15] overflow-hidden transition-all duration-300 hover:border-purple-500/[0.3]"
+const cardClasses = "rounded-2xl bg-white/[0.04] backdrop-blur-xl border border-purple-500/[0.15] overflow-hidden transition-all duration-300 hover:border-purple-500/[0.3]"
 
 function DeckPhotos() {
   const [clickedIndex, setClickedIndex] = React.useState<number | null>(null)
@@ -205,42 +221,29 @@ function DeckPhotos() {
       id: 0,
       base: { rotate: -15, x: -45, y: 10, scale: 0.9, zIndex: 1, opacity: 1 },
       hover: { rotate: -25, x: -60, scale: 0.95, zIndex: 10 },
-      className: "w-[100px] h-[125px] bg-white/[0.03] border-white/10"
+      className: "w-[80px] h-[100px] sm:w-[100px] sm:h-[125px] bg-white/[0.03] border-white/10"
     },
     {
       id: 1,
       base: { rotate: 0, x: 0, y: 0, scale: 1, zIndex: 2, opacity: 1 },
       hover: { scale: 1.05, zIndex: 10 },
-      className: "w-[115px] h-[140px] bg-white/[0.06] border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.15)] backdrop-blur-sm"
+      className: "w-[90px] h-[115px] sm:w-[115px] sm:h-[140px] bg-white/[0.06] border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.15)]"
     },
     {
       id: 2,
       base: { rotate: 15, x: 45, y: 10, scale: 0.9, zIndex: 1, opacity: 1 },
       hover: { rotate: 25, x: 60, scale: 0.95, zIndex: 10 },
-      className: "w-[100px] h-[125px] bg-white/[0.03] border-white/10"
+      className: "w-[80px] h-[100px] sm:w-[100px] sm:h-[125px] bg-white/[0.03] border-white/10"
     }
   ]
 
   return (
-    <div className="relative w-full h-[150px] my-3 flex justify-center items-center">
-      {/* Click on them indicator */}
-      <motion.div 
-        animate={{ opacity: clickedIndex === null ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
-        className="absolute top-[-20px] left-1/2 -translate-x-1/2 z-20 pointer-events-none"
-      >
-        <span className="text-[10px] font-mono text-white/30 uppercase tracking-widest animate-pulse">
-          - Click on them -
-        </span>
-      </motion.div>
-
+    <div className="relative w-full h-[140px] sm:h-[150px] my-3 flex justify-center items-center">
       {cards.map((c, i) => {
         const isClicked = clickedIndex === i;
         const isOtherClicked = clickedIndex !== null && clickedIndex !== i;
         
-        // Base starting point
         let animateState = { ...c.base };
-        
         if (isClicked) {
           animateState = { rotate: 0, x: 0, y: -5, scale: 1.2, zIndex: 50, opacity: 1 };
         } else if (isOtherClicked) {
@@ -273,9 +276,7 @@ function DeckPhotos() {
 
 function ChessSlider() {
   const containerRef = React.useRef<HTMLDivElement>(null);
-
   const handleDragEnd = (event: any, info: any) => {
-    // Check if slider is dragged close to the right edge
     if (info.offset.x > 120) {
       window.open("https://deep-knight.vercel.app", "_blank");
     }
@@ -284,7 +285,7 @@ function ChessSlider() {
   return (
     <div 
       ref={containerRef} 
-      className="relative w-full max-w-[200px] h-7 bg-white/5 rounded-full border border-white/10 flex items-center px-1 overflow-hidden shadow-inner mt-1 mx-auto"
+      className="relative w-full max-w-[200px] h-7 bg-white/5 rounded-full border border-white/10 flex items-center px-1 overflow-hidden mt-1 mx-auto"
     >
       <span className="absolute w-full left-0 text-center text-[8px] sm:text-[9px] font-mono text-white/50 uppercase tracking-widest pointer-events-none">
         Slide to play &gt;&gt;&gt;
@@ -295,9 +296,9 @@ function ChessSlider() {
         dragElastic={0.05}
         dragSnapToOrigin
         onDragEnd={handleDragEnd}
-        className="w-5 h-5 bg-gradient-to-tr from-purple-500 to-cyan-400 rounded-full flex justify-center items-center cursor-grab active:cursor-grabbing z-10 shadow-[0_0_10px_rgba(168,85,247,0.6)]"
+        className="w-5 h-5 bg-gradient-to-tr from-purple-500 to-cyan-400 rounded-full flex justify-center items-center cursor-grab active:cursor-grabbing z-10"
       >
-        <span className="text-white text-[10px] leading-none mb-0.5" style={{ textShadow: "0 0 5px rgba(255,255,255,0.5)" }}>♟</span>
+        <span className="text-white text-[10px] leading-none mb-0.5">♟</span>
       </motion.div>
     </div>
   );
@@ -305,22 +306,17 @@ function ChessSlider() {
 
 export function About() {
   return (
-    <section
-      id="about"
-      className="min-h-screen flex flex-col justify-center py-10 px-4 max-w-5xl mx-auto w-full"
-    >
-      <div className="grid grid-cols-3 gap-2">
-
-        {/* ── ROW 1 ──────────────────────────────────────────────────────── */}
+    <section id="about" className="min-h-screen flex flex-col justify-center py-10 px-4 md:px-6 max-w-5xl mx-auto w-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
 
         {/* Name card */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className={cn(card, "flex flex-col items-center justify-center p-6 h-[145px] text-center")}
+          className={cn(cardClasses, "flex flex-col items-center justify-center p-6 h-[145px] text-center order-1")}
         >
           <div className="flex flex-col items-center pt-2">
-            <h2 className="text-[32px] sm:text-[34px] font-black tracking-tighter leading-[1.0] text-white uppercase mb-3 text-center">
+            <h2 className="text-[30px] sm:text-[34px] font-black tracking-tighter leading-[1.0] text-white uppercase mb-3 text-center">
               ANDER<br />MAÑAS
             </h2>
             <div className="w-10 h-[1px] bg-white/10 mb-3" />
@@ -330,33 +326,26 @@ export function About() {
           </div>
         </motion.div>
 
-        {/* Hover-to-read info card */}
+        {/* Info card (Interactive on desktop, Static list on mobile) */}
         <motion.div
           initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ delay: 0.07 }}
-          className={cn(card, "col-span-2 relative p-0 overflow-hidden h-[145px]")}
+          className={cn(cardClasses, "md:col-span-2 relative p-0 overflow-hidden min-h-[145px] order-2")}
         >
-          <div className="absolute inset-0 pt-0">
-            <InfoColGroup />
-          </div>
+          <InfoColGroup />
         </motion.div>
-
-        {/* ── ROW 2 ──────────────────────────────────────────────────────── */}
 
         {/* Beyond the Code */}
         <motion.div
           initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ delay: 0.12 }}
-          className={cn(card, "p-6 flex flex-col")}
+          className={cn(cardClasses, "p-6 flex flex-col order-3")}
         >
-          <h3 className="text-2xl font-black tracking-tight mb-1 uppercase">Beyond the CODE</h3>
+          <h3 className="text-xl md:text-2xl font-black tracking-tight mb-1 uppercase text-white">Beyond the CODE</h3>
           <div className="h-0.5 w-8 bg-purple-500/50 rounded-full mb-4" />
-
-          {/* Deck of Interactive Cards */}
           <DeckPhotos />
-
-          <p className="text-xs sm:text-[13px] leading-relaxed text-white/70 mt-auto">
-            When I’m not building software or exploring new AI models, you’ll probably find me hiking in the mountains, staying active, or planning my next travel itinerary. I believe that stepping away from the screen is the best way to solve complex problems.
+          <p className="text-xs leading-relaxed text-white/70 mt-2">
+            When I’m not building software or exploring new AI models, you’ll probably find me hiking in the mountains, staying active, or planning my next travel itinerary.
           </p>
         </motion.div>
 
@@ -364,20 +353,12 @@ export function About() {
         <motion.div
           initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }} transition={{ delay: 0.18 }}
-          className="flex flex-col gap-2"
+          className="flex flex-col gap-3 order-4"
         >
-          {/* Profile photo */}
-          <div className="rounded-2xl overflow-hidden flex-1 relative min-h-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/PhotoCV.PNG"
-              alt="Ander Mañas"
-              className="absolute inset-0 w-full h-full object-cover object-[center_20%]"
-            />
+          <div className="rounded-2xl overflow-hidden h-[240px] md:h-auto md:flex-1 relative border border-white/5">
+            <img src="/PhotoCV.PNG" alt="Ander Mañas" className="absolute inset-0 w-full h-full object-cover object-[center_20%]" />
           </div>
-
-          {/* Location card */}
-          <div className={cn(card, "relative h-[110px]")}>
+          <div className={cn(cardClasses, "relative h-[120px]")}>
             <RadarMap />
             <div className="absolute bottom-0 left-0 right-0 p-4">
               <div className="flex items-center gap-1.5 mb-1">
@@ -385,10 +366,6 @@ export function About() {
                 <span className="text-[8px] font-mono uppercase tracking-[0.3em] text-white/80">Location</span>
               </div>
               <p className="text-lg font-black tracking-tighter leading-tight text-white">BASEL, SWITZERLAND</p>
-              <p className="text-[9px] font-mono text-white/70 mt-0.5">
-                47.5596° N, 7.5886° E<br />
-                – GMT+1
-              </p>
             </div>
           </div>
         </motion.div>
@@ -397,40 +374,24 @@ export function About() {
         <motion.div
           initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ delay: 0.24 }}
-          className={cn(card, "p-6 flex flex-col")}
+          className={cn(cardClasses, "p-6 flex flex-col order-5")}
         >
-          <h3 className="text-2xl font-black tracking-tight mb-1 uppercase">CRAFT</h3>
+          <h3 className="text-xl md:text-2xl font-black tracking-tight mb-1 uppercase text-white">CRAFT</h3>
           <div className="h-0.5 w-8 bg-purple-500/50 rounded-full mb-4" />
-
-          <p className="text-xs sm:text-[13px] leading-relaxed text-white/80 mb-4">
-            I build end-to-end software solutions where <strong className="text-white">architecture, security, and testability</strong> come first. 
+          <p className="text-xs leading-relaxed text-white/80 mb-4">
+            Building end-to-end software solutions where <strong className="text-white">architecture, security, and testability</strong> come first. 
           </p>
-
-          {/* Scrolling tags */}
           <TagStrip />
-
-          <p className="text-xs sm:text-[13px] leading-relaxed text-white/60 mt-4">
-            Leveraging my aerospace background, I apply rigorous engineering standards to modern web development and Generative AI—designing <strong className="text-white/80">clean, traceable systems</strong> that are reliable in production, not just in demos.
-          </p>
-
-          {/* Open to collab */}
           <div className="flex flex-col gap-2 mt-auto pt-4 border-t border-white/[0.05]">
             <div className="flex items-start gap-2">
-              <span className="w-1.5 h-1.5 mt-1 rounded-full bg-green-400 animate-pulse shadow-[0_0_6px_rgba(74,222,128,0.8)] shrink-0" />
-              <span className="text-[8px] sm:text-[9px] leading-relaxed font-mono text-white/50 uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 mt-1 rounded-full bg-green-400 animate-pulse" />
+              <span className="text-[10px] font-mono text-white/50 uppercase tracking-widest">
                 Open to full-time roles &amp; collaborations
               </span>
             </div>
-            
-            <div className="flex flex-col gap-1 w-full mt-1.5">
-              <span className="text-[7px] sm:text-[8px] font-mono font-bold uppercase tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 animate-pulse whitespace-nowrap">
-                Challenge me to a chess game if you want to talk
-              </span>
-              <ChessSlider />
-            </div>
+            <ChessSlider />
           </div>
         </motion.div>
-
       </div>
     </section>
   )

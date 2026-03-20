@@ -42,14 +42,16 @@ export function Navigation() {
 
   return (
     <nav
-      style={{ left: "calc(1.5rem + env(safe-area-inset-left, 0px))" }}
-      className="fixed top-1/2 -translate-y-1/2 z-50"
+      className={cn(
+        "fixed z-50 transition-all duration-500",
+        "bottom-6 left-1/2 -translate-x-1/2 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:left-6 md:translate-x-0"
+      )}
     >
       <motion.div
-        initial={{ x: -60, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", damping: 20, stiffness: 120, delay: 0.3 }}
-        className="rounded-full py-3 px-2 flex flex-col items-center gap-1 shadow-2xl border border-purple-500/[0.18] bg-[#0a0a18]/80 backdrop-blur-xl"
+        className="rounded-full py-2 px-3 md:py-3 md:px-2 flex flex-row md:flex-col items-center gap-1 shadow-2xl border border-purple-500/[0.18] bg-[#0a0a18]/80 backdrop-blur-xl"
       >
         {navItems.map((item, index) => {
           const isActive = activeSection === item.sectionId
@@ -101,7 +103,7 @@ export function Navigation() {
                     animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                     exit={{ opacity: 0, x: -10, filter: "blur(6px)" }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute left-[calc(100%+16px)] pointer-events-none whitespace-nowrap"
+                    className="absolute left-[calc(100%+16px)] pointer-events-none whitespace-nowrap hidden md:block"
                   >
                     <span className="text-4xl font-black tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.4)]">
                       {item.label}

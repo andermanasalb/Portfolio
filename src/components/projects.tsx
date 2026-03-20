@@ -127,7 +127,7 @@ export function Projects() {
               />
               <motion.div
                 variants={overlayVariants}
-                className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col justify-end p-8"
+                className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col justify-end p-6 md:p-8 opacity-100 md:opacity-0"
               >
                 <div className="flex flex-wrap gap-2 mb-3">
                   {project.tags.map((tag) => (
@@ -159,14 +159,14 @@ export function Projects() {
               </motion.div>
             </div>
 
-            <motion.div
-              variants={{
-                rest: { opacity: 1, height: "auto" },
-                hover: { opacity: 0, height: 0, overflow: "hidden" },
-              }}
-              transition={{ duration: 0.2 }}
-              className="px-8 py-5 flex items-center justify-between border-t border-white/5 bg-black/20"
-            >
+              <motion.div
+                variants={{
+                  rest: { opacity: 1, height: "auto" },
+                  hover: { opacity: 0, height: 0, overflow: "hidden" },
+                }}
+                transition={{ duration: 0.2 }}
+                className="px-8 py-5 items-center justify-between border-t border-white/5 bg-black/20 hidden md:flex"
+              >
               <div>
                 <h3 className="text-base font-bold tracking-tight">{project.title}</h3>
                 <div className="flex flex-wrap gap-1.5 mt-1.5">
