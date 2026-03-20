@@ -41,19 +41,38 @@ export function Footer() {
   const [form, setForm] = React.useState({ name: "", email: "", message: "" })
   const [sending, setSending] = React.useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.name || !form.email || !form.message) return
     setSending(true)
-    // Simula envío — aquí conectarías tu backend/emailJS/formspree
-    setTimeout(() => {
-      setSending(false)
-      setForm({ name: "", email: "", message: "" })
-      toast.success("Message sent!", {
-        description: "I'll get back to you within 24 hours.",
-        duration: 4000,
+    
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
       })
-    }, 1200)
+      
+      const data = await response.json()
+      
+      if (response.ok) {
+        toast.success("Message sent!", {
+          description: "I'll get back to you within 24 hours.",
+          duration: 4000,
+        })
+        setForm({ name: "", email: "", message: "" })
+      } else {
+        toast.error("Failed to send", {
+          description: data.error || "Please try again later or contact me via email directly."
+        })
+      }
+    } catch (error) {
+      toast.error("Network Error", {
+        description: "Please check your connection and try again."
+      })
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
