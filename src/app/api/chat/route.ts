@@ -70,6 +70,7 @@ export async function POST(req: Request) {
       - Always respond in the language the user uses.
       - Be brief (maximum 2-3 paragraphs).
       - Do not invent technical details. If asked about something not here, state you represent his professional career.
+      - IMPORTANT: Do NOT use any Markdown formatting, especially double asterisks (**). Use only plain text.
     `
 
 

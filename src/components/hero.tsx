@@ -230,7 +230,12 @@ export function Hero() {
                             </div>
                           )}
                           <div className="font-medium whitespace-pre-wrap">
-                            {msg.content}
+                            {msg.content.split(/(\*\*.*?\*\*)/g).map((part, i) => {
+                              if (part.startsWith('**') && part.endsWith('**')) {
+                                return <strong key={i} className="font-bold text-white">{part.slice(2, -2)}</strong>
+                              }
+                              return part
+                            })}
                           </div>
                         </div>
                       </motion.div>

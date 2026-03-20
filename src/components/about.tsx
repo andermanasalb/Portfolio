@@ -345,7 +345,7 @@ export function About() {
           <div className="h-0.5 w-8 bg-purple-500/50 rounded-full mb-4" />
           <DeckPhotos />
           <p className="text-xs leading-relaxed text-white/70 mt-2">
-            When I’m not building software or exploring new AI models, you’ll probably find me hiking in the mountains, staying active, or planning my next travel itinerary.
+            When I’m not building software or exploring new AI models, you’ll probably find me hiking in the mountains, staying active, or planning my next travel itinerary. I believe that stepping away from the screen is the best way to solve complex problems.
           </p>
         </motion.div>
 
