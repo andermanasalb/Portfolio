@@ -33,10 +33,10 @@ const projects: { title: string; description: string; image: string; tags: strin
     github: "https://github.com/andermanasalb/InvoiceScan"
   },
   {
-    title: "Comercial Maró",
-    description: "Corporate website for a commercial cleaning and facility services company. Built with a focus on clear service presentation, professional aesthetics, and responsive layout across all devices.",
+    title: "Comercial MAR'O",
+    description: "Production website for Comercial MAR'O, a metalwork fabrication and installation company based in Bilbao. Built with Next.js 16 App Router, a clean content/component separation, an AI-powered live chat assistant, and automated transactional email.",
     image: "/SocialPreviewWebsite.png",
-    tags: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    tags: ["Next.js 16", "TypeScript", "Tailwind CSS", "AI Chat", "Transactional Email"],
     live: null,
     github: "https://github.com/andermanasalb/Comercial-Maro-website"
   }
