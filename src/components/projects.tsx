@@ -31,6 +31,14 @@ const projects: { title: string; description: string; image: string; tags: strin
     tags: ["NestJS", "Next.js 15", "TypeScript", "PostgreSQL", "Redis", "BullMQ", "OpenTelemetry"],
     live: "https://invoicescan-snowy.vercel.app",
     github: "https://github.com/andermanasalb/InvoiceScan"
+  },
+  {
+    title: "Comercial Maró",
+    description: "Corporate website for a commercial cleaning and facility services company. Built with a focus on clear service presentation, professional aesthetics, and responsive layout across all devices.",
+    image: "/SocialPreviewWebsite.png",
+    tags: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    live: null,
+    github: "https://github.com/andermanasalb/Comercial-Maro-website"
   }
 ]
 
