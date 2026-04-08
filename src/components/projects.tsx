@@ -142,7 +142,7 @@ export function Projects() {
                     <Badge
                       key={tag}
                       variant="secondary"
-                      className="text-[9px] py-0.5 px-2 font-mono uppercase tracking-[0.15em] bg-white/10 border-white/10 text-white/80"
+                      className="text-[9px] py-0.5 px-2 font-mono uppercase tracking-[0.15em] bg-black/50 border-white/20 text-white/90 backdrop-blur-sm"
                     >
                       {tag}
                     </Badge>
@@ -158,7 +158,7 @@ export function Projects() {
                       </a>
                     </Button>
                   )}
-                  <Button variant="ghost" size="sm" className="gap-2 rounded-full text-white/60 hover:text-white" asChild>
+                  <Button variant="ghost" size="sm" className="gap-2 rounded-full text-white/60 hover:text-white hover:bg-white/10" asChild>
                     <a href={project.github} target="_blank" rel="noopener noreferrer">
                       <Github className="w-4 h-4" /> Source Code
                     </a>
