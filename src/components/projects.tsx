@@ -76,6 +76,13 @@ export function Projects() {
     }
   }
 
+  const centerCard = (cardEl: HTMLElement) => {
+    if (!scrollRef.current) return
+    const container = scrollRef.current
+    const scrollTo = cardEl.offsetLeft - (container.offsetWidth - cardEl.offsetWidth) / 2
+    container.scrollTo({ left: scrollTo, behavior: "smooth" })
+  }
+
   return (
     <section 
       id="projects" 
@@ -123,8 +130,9 @@ export function Projects() {
             whileHover="hover"
             animate="rest"
             variants={cardVariants}
+            onClick={(e) => centerCard(e.currentTarget)}
             // Mismo tamaño para todos (sin col-span-2 para jobtaylor)
-            className="group relative shrink-0 w-[85vw] md:w-[600px] snap-center rounded-3xl overflow-hidden border border-purple-500/[0.15] bg-white/[0.04] backdrop-blur-xl hover:border-purple-400/40 hover:shadow-[0_-4px_30px_rgba(168,85,247,0.3)] transition-all duration-300"
+            className="group relative shrink-0 w-[85vw] md:w-[600px] snap-center rounded-3xl overflow-hidden border border-purple-500/[0.15] bg-white/[0.04] backdrop-blur-xl hover:border-purple-400/40 hover:shadow-[0_-4px_30px_rgba(168,85,247,0.3)] transition-all duration-300 cursor-pointer"
           >
             <div className="relative w-full h-56 md:h-72 overflow-hidden">
               <motion.img
